@@ -2,13 +2,20 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.send("Hello, World")
+});
+
 
 //Login com segurança
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secretKey = 'chave-secreta'; // Troque por uma chave mais segura
 
-const app = express();
+//const app = express();
 app.use(express.json());
 app.use(cors());
 
@@ -244,6 +251,7 @@ app.use('/uploads', express.static('uploads'));
 
 const multer = require('multer');
 const path = require('path');
+const { console } = require('inspector');
 
 // Configuração do armazenamento
 const storage = multer.diskStorage({
@@ -394,8 +402,13 @@ app.put('/produtos/:id', upload.single('foto'), (req, res) => {
   
 
 
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+// const PORT = 3000;
+// app.listen(PORT, () => {
+//     console.log(`Servidor rodando na porta ${PORT}`);
+// });
 // const port = Process.env.PORT || 3001
+
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
+});
+
